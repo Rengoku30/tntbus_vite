@@ -1,6 +1,6 @@
 import { safeStorage } from "@/lib/storage";
-import { DEMO_USER } from "@/data/seed";
-import type { User, Session } from "@/types/domain";
+import { DEMO_USER, DEMO_ADMIN } from "@/data/seed";
+import type { User, Session, UserRole } from "@/types/domain";
 import { newId } from "@/lib/id";
 import { AuthError } from "@/lib/errors";
 import { logger } from "@/lib/logger";
@@ -18,9 +18,16 @@ export interface StoredUser extends User {}
 
 function loadUsers(): StoredUser[] {
   const existing = safeStorage.get<StoredUser[]>(USERS_KEY);
-  if (existing && existing.length > 0) return existing;
-  // First run: seed the demo user.
-  const seeded = [DEMO_USER];
+  if (existing && existing.length > 0) {
+    // Migration: users created before roles existed have no `role` — default to customer.
+    const migrated = existing.map((u) => ({ ...u, role: (u.role ?? "customer") as UserRole }));
+    if (migrated.some((u, i) => u.role !== existing[i]?.role)) {
+      safeStorage.set(USERS_KEY, migrated);
+    }
+    return migrated;
+  }
+  // First run: seed the demo user + demo admin.
+  const seeded = [DEMO_USER, DEMO_ADMIN];
   safeStorage.set(USERS_KEY, seeded);
   return seeded;
 }
@@ -50,6 +57,7 @@ export const authStore = {
       email: input.email,
       phone: input.phone,
       passwordHash: input.password, // demo only
+      role: "customer", // new registrations are never admins
     };
     users.push(user);
     saveUsers(users);

@@ -46,6 +46,8 @@ export interface Trip {
   /** Pre-booked seats (IDs) — stable per trip. */
   bookedSeats: string[];
   fast?: boolean;
+  /** True when the route was created by an admin (vs. seeded). */
+  adminCreated?: boolean;
 }
 
 export interface TripWithAvailability extends Trip {
@@ -60,12 +62,16 @@ export interface SearchParams {
   passengers: number;
 }
 
+/** User roles — admins can manage routes and view all bookings. */
+export type UserRole = "customer" | "admin";
+
 export interface User {
   id: string;
   name: string;
   email: string;
   phone: string;
   passwordHash: string; // NOTE: demo only — never ship real auth this way.
+  role: UserRole;
   isDemo?: boolean;
 }
 

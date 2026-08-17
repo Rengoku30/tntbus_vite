@@ -11,6 +11,7 @@
 export type ErrorCode =
   | "VALIDATION"
   | "AUTH"
+  | "FORBIDDEN"
   | "NOT_FOUND"
   | "NETWORK"
   | "TIMEOUT"
@@ -64,6 +65,21 @@ export class AuthError extends AppError {
     this.name = "AuthError";
   }
 }
+
+/** Access denied — the user is authenticated but lacks the required role. */
+export class ForbiddenError extends AppError {
+  constructor(
+    message = "Access denied",
+    userMessage = "You don't have permission to view this page.",
+    status = 403,
+  ) {
+    super({ code: "FORBIDDEN", message, userMessage, status });
+    this.name = "ForbiddenError";
+  }
+}
+
+/** Shorthand used by admin-only surfaces. */
+export const adminError = () => new ForbiddenError("Admin access required", "Admin access required.");
 
 export class NotFoundError extends AppError {
   constructor(

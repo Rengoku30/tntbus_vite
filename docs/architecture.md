@@ -39,12 +39,22 @@ Cross-cutting: `lib/errors.ts` (typed errors), `lib/async.ts` (async state), `li
 | `src/pages/` | Route components. No direct localStorage access — always via hooks/API. |
 | `src/hooks/` | React glue: auth session, bookings list, toasts, online status, debounce, localStorage state. |
 | `src/api/` | The "server". Every call flows through `mockClient.ts` which adds latency, random failure, offline and timeout behavior. API functions throw typed `AppError`s. |
-| `src/store/` | Pure-ish data layer. `authStore` (users/session), `bookingStore` (bookings + seat locks with TTL), `searchStore` (catalog + availability). |
-| `src/data/seed.ts` | Deterministic trip catalog generated per date, plus the demo user and city list. |
+| `src/store/` | Pure-ish data layer. `authStore` (users/session), `bookingStore` (bookings + seat locks with TTL), `searchStore` (catalog + availability), `adminTripsStore` (admin-created routes). |
+| `src/data/seed.ts` | Deterministic trip catalog generated per date, plus demo users and the city list. |
 | `src/lib/` | Framework-free utilities: errors, safe storage, async state machine, retry, online, logging, formatting, ids. |
 | `src/validation/` | Zod schemas — the single source of truth for form rules. |
 | `src/components/` | Reusable UI. `layout/` shells, `ui/` primitives, `feedback/` error/toast/modal, `bus/` domain components (BusCard, SeatMap…), `forms/`. |
 | `src/types/domain.ts` | Shared domain types (`Trip`, `Booking`, `User`, `Seat`, `SeatLock`…). |
+
+## Admin layer
+
+Admin features live in three places:
+
+- **`src/store/adminTripsStore.ts`** — persists admin-created routes (code, vehicle, times, price, dates, amenities) to localStorage and registers them with the seed catalog via `registerCustomTripSource`. New/removed routes invalidate the trip cache so searches and seat maps pick them up immediately. Every mutation calls `requireAdmin()` and throws `ForbiddenError` for non-admins.
+- **`src/api/admin.ts`** — `adminApi.listAllBookings()` (all bookings + customer info), `listRoutes()`, `createRoute()`, `removeRoute()`. Each re-checks `isAdmin()` at the edge (defense in depth).
+- **`src/components/layout/RequireAdmin.tsx`** — route guard composing `ProtectedRoute`; redirects signed-in non-admins away from `/admin`. The "Admin" nav link only renders for admins.
+
+Roles are stored on the user (`role: "customer" | "admin"`). New registrations are always `customer`; the seeded `admin@tntbus.com` account is the only admin.
 
 ## Data flow: search → booking
 

@@ -3,6 +3,7 @@ import { ToastProvider } from "@/components/feedback/toast";
 import { ToastViewport } from "@/components/feedback/ToastViewport";
 import { ErrorBoundary } from "@/components/feedback/ErrorBoundary";
 import { ProtectedRoute } from "@/components/layout/ProtectedRoute";
+import { RequireAdmin } from "@/components/layout/RequireAdmin";
 import { HomePage } from "@/pages/HomePage";
 import { SearchResultsPage } from "@/pages/SearchResultsPage";
 import { RouteDetailsPage } from "@/pages/RouteDetailsPage";
@@ -10,6 +11,7 @@ import { CheckoutPage } from "@/pages/CheckoutPage";
 import { BookingConfirmedPage } from "@/pages/BookingConfirmedPage";
 import { MyBookingsPage } from "@/pages/MyBookingsPage";
 import { ProfilePage } from "@/pages/ProfilePage";
+import { AdminDashboardPage } from "@/pages/AdminDashboardPage";
 import { LoginPage } from "@/pages/LoginPage";
 import { RegisterPage } from "@/pages/RegisterPage";
 import { ForgotPasswordPage } from "@/pages/ForgotPasswordPage";
@@ -53,6 +55,14 @@ export default function App() {
                 <ProtectedRoute>
                   <ProfilePage />
                 </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <RequireAdmin>
+                  <AdminDashboardPage />
+                </RequireAdmin>
               }
             />
 

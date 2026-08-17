@@ -142,3 +142,37 @@ export type RegisterForm = z.infer<typeof registerSchema>;
 export type ForgotPasswordForm = z.infer<typeof forgotPasswordSchema>;
 export type SearchForm = z.infer<typeof searchSchema>;
 export type CheckoutForm = z.infer<typeof checkoutSchema>;
+
+/* ---- Admin: route creation ---- */
+
+const CITY_CODES = ["NYC", "BOS", "PHL", "DC", "CHI", "DET"] as const;
+
+export const routeSchema = z
+  .object({
+    code: z
+      .string({ error: "Enter a route code" })
+      .trim()
+      .min(3, "Route code must be at least 3 characters")
+      .max(16, "Route code must be at most 16 characters")
+      .regex(/^[A-Za-z0-9- ]+$/, "Route code can only contain letters, numbers, dashes and spaces"),
+    vehicle: z
+      .string({ error: "Enter a vehicle" })
+      .trim()
+      .min(3, "Enter a vehicle name")
+      .max(60, "Vehicle name is too long"),
+    kind: z.enum(["express", "sleeper", "direct", "overnight"], { error: "Choose a trip type" }),
+    origin: z.enum(CITY_CODES, { error: "Choose an origin city" }),
+    destination: z.enum(CITY_CODES, { error: "Choose a destination city" }),
+    basePrice: z.coerce.number().min(5, "Price must be at least $5").max(500, "Price must be at most $500"),
+    departureHour: z.coerce.number().int().min(0).max(23),
+    departureMinute: z.coerce.number().int().min(0).max(59),
+    durationMin: z.coerce.number().int().min(15, "Duration must be at least 15 minutes").max(24 * 60, "Duration must be at most 24 hours"),
+    dates: z.array(z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date")).min(1, "Pick at least one date"),
+    amenities: z.array(z.enum(["wifi", "power", "restroom", "ac"])),
+  })
+  .refine((v) => v.origin !== v.destination, {
+    message: "Origin and destination can't be the same",
+    path: ["destination"],
+  });
+
+export type RouteForm = z.infer<typeof routeSchema>;

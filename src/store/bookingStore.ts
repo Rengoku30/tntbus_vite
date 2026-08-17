@@ -73,6 +73,11 @@ export const bookingStore = {
       .sort((a, b) => b.createdAt - a.createdAt);
   },
 
+  /** All bookings, newest first (admin surface — callers enforce roles). */
+  listAll(): Booking[] {
+    return loadBookings().sort((a, b) => b.createdAt - a.createdAt);
+  },
+
   getById(bookingId: string): Booking | undefined {
     return loadBookings().find((b) => b.id === bookingId || b.reference === bookingId);
   },

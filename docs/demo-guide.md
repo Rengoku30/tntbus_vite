@@ -30,7 +30,19 @@ npm run preview    # → http://localhost:4173
 7. **My Bookings** — the booking is under **Upcoming**; **View Ticket** reopens it.
 8. **Profile** — change the avatar, open settings, then **Logout** (confirm).
 
-## 3. Register & forgot password
+## 3. Admin dashboard (2 minutes)
+
+1. **Log out** (or use a fresh tab), then sign in with the **admin demo**:
+   - Email: `admin@tntbus.com` · Password: `Admin123!`
+2. **Admin** appears in the top bar → click it (or go to `/admin`).
+3. **All Bookings** — the table lists every customer booking with reference, passenger, contact, route, date, seats, and total.
+4. **Add a New Route** — fill the form (e.g. Code `Express 501`, NYC → Boston, $40, 8:00, 240 min, today's date, Wi-Fi + AC) → **Add Route**.
+5. Search that route as a customer — it appears instantly with the selected amenities and a seat map.
+6. **Routes You've Added** — **Remove** deletes it from the catalog (existing bookings untouched).
+
+**Access control:** as a logged-in *customer*, visiting `/admin` redirects home and no Admin link shows. New registrations are always customers.
+
+## 4. Register & forgot password
 
 - **Register** — create a fresh account (password strength meter + terms required); you're auto-logged-in.
 - **Forgot password** — enter any email; the app always shows "Reset link sent" (no account enumeration).
@@ -52,6 +64,8 @@ npm run preview    # → http://localhost:4173
 | **Stale booking id** | Visit `/booking-confirmed/does-not-exist` | Not-found page (no crash, no fake success) |
 | **Foreign booking** | Log in as another user, visit your own booking id | Not-found page (ownership guard) |
 | **Protected route** | Logged out, visit `/my-bookings` | Redirect to `/login?next=/my-bookings`, returns after login |
+| **Admin access control** | Logged in as customer, visit `/admin` | Redirected home; no Admin link in nav; API calls from console throw `ForbiddenError` |
+| **Duplicate route code** | Admin adds a route with an existing code | Inline error "Route code X already exists" |
 | **Storage full** | DevTools → Application → fill localStorage to quota | Toast "We couldn't save your data…" but the session keeps working |
 | **Avatar image error** | Upload a corrupt image file | Falls back to initials avatar |
 

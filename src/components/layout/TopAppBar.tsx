@@ -14,6 +14,9 @@ export function TopAppBar({ backTo }: { backTo?: string | number }) {
     { to: "/", label: "Home", icon: "home", end: true },
     { to: "/my-bookings", label: "Bookings", icon: "confirmation_number" },
     { to: "/profile", label: "Profile", icon: "person" },
+    ...(user?.role === "admin"
+      ? [{ to: "/admin", label: "Admin", icon: "admin_panel_settings" }]
+      : []),
   ];
 
   return (

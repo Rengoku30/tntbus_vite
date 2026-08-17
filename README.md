@@ -4,7 +4,9 @@ A full end-to-end intercity bus booking web app built with **React 19 + Vite + T
 
 The app is **frontend-only by design**: a localStorage-backed mock data layer simulates a backend (latency, failures, offline) so the entire error-handling stack is real, testable, and demoable without a server.
 
-> **Demo login** — `john@example.com` / `Password123!`
+> **Customer demo** — `john@example.com` / `Password123!`
+>
+> **Admin demo** — `admin@tntbus.com` / `Admin123!`
 >
 > **Demo card** — `4242 4242 4242 4242` (success) or `4000 0000 0000 0002` (declined)
 
@@ -37,6 +39,7 @@ The app is **frontend-only by design**: a localStorage-backed mock data layer si
 | `/checkout` | Checkout | **Protected** — passenger + mock card payment |
 | `/booking-confirmed/:bookingId` | Confirmed | Guarded digital ticket + QR + download |
 | `/my-bookings` | My Bookings | **Protected** — upcoming/past tabs |
+| `/admin` | Admin Dashboard | **Admin-only** — all bookings + add/remove routes |
 | `/login`, `/register`, `/forgot-password` | Auth | Transactional screens (no bottom nav) |
 | `/profile` | Profile | **Protected** — avatar, settings, logout |
 | `*` | 404 | On-brand not-found |
@@ -141,13 +144,29 @@ Error handling is a **first-class, layered system** — 14 layers, each with a c
 
 Every UI error renders `error.userMessage` — raw stack traces never reach the user, and each failure is logged with a short reference id for support.
 
+## Admin dashboard
+
+An **admin-role-only** dashboard at `/admin` lets administrators:
+
+- **View all bookings** — every customer booking with reference, passenger, contact email, route, date, seats, total, and status.
+- **Add new bus routes** — code, vehicle, trip type, origin/destination, price, departure time, duration, travel dates, and amenities. New routes are validated (zod), persist to localStorage, and **appear in customer search and booking immediately**.
+- **Remove routes** — with a confirmation dialog; existing bookings are unaffected.
+
+Access control is enforced in two layers:
+
+- **UI**: the "Admin" nav link only renders for `role: "admin"` users; `RequireAdmin` redirects non-admins away from `/admin`.
+- **Data**: `adminApi` and `adminTripsStore` re-check the caller's role on every call and throw a `ForbiddenError` — so even a hand-crafted API call from the console can't create routes as a customer.
+
+Sign in with the **admin demo** (`admin@tntbus.com` / `Admin123!`) to try it. New registrations are always `customer` — there is no public path to becoming an admin.
+
 ## Demo data
 
 Seeded from `src/data/seed.ts` (deterministic per date):
 
 - **6 bookable cities** — NYC, Boston, Philadelphia, DC, Chicago, Detroit (plus intermediate stops for itineraries)
 - **10 trips/day** — Express / Direct / Overnight / Sleeper with realistic times, prices, amenities, and 4-column seat maps (some pre-booked, a premium row at a higher price)
-- **Demo user** — `john@example.com` / `Password123!` (created on first run)
+- **Demo customer** — `john@example.com` / `Password123!`
+- **Demo admin** — `admin@tntbus.com` / `Admin123!`
 
 Confirmed bookings persist to localStorage and **immediately reduce availability** — a seat booked in one tab is sold out in another.
 

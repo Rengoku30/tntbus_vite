@@ -50,11 +50,19 @@ export function LoginPage() {
           </p>
         </div>
 
-        <div className="bg-surface-container-low/60 border border-surface-variant rounded-lg p-4 text-label-sm text-on-surface-variant">
-          <p className="font-label-bold text-label-bold text-primary-container uppercase tracking-wider mb-1">
-            Demo account
-          </p>
-          <p>Email: <span className="text-primary">john@example.com</span> • Password: <span className="text-primary">Password123!</span></p>
+        <div className="bg-surface-container-low/60 border border-surface-variant rounded-lg p-4 text-label-sm text-on-surface-variant flex flex-col gap-2">
+          <div>
+            <p className="font-label-bold text-label-bold text-primary-container uppercase tracking-wider mb-1">
+              Customer demo
+            </p>
+            <p>Email: <span className="text-primary">john@example.com</span> • Password: <span className="text-primary">Password123!</span></p>
+          </div>
+          <div className="border-t border-surface-variant pt-2">
+            <p className="font-label-bold text-label-bold text-primary-container uppercase tracking-wider mb-1">
+              Admin demo
+            </p>
+            <p>Email: <span className="text-primary">admin@tntbus.com</span> • Password: <span className="text-primary">Admin123!</span></p>
+          </div>
         </div>
 
         {serverError && (

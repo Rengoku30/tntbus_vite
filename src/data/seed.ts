@@ -30,6 +30,18 @@ export const DEMO_USER: User = {
   phone: "+1 (555) 000-0000",
   // "Password123!" — demo only; a real app must hash server-side.
   passwordHash: "Password123!",
+  role: "customer",
+  isDemo: true,
+};
+
+export const DEMO_ADMIN: User = {
+  id: "u_admin",
+  name: "Admin User",
+  email: "admin@tntbus.com",
+  phone: "+1 (555) 000-0001",
+  // "Admin123!" — demo only; a real app must hash server-side.
+  passwordHash: "Admin123!",
+  role: "admin",
   isDemo: true,
 };
 
@@ -308,9 +320,40 @@ function applyExtraBooked(trip: Trip): Trip {
 export function getTripsForDate(date: string): Trip[] {
   const cached = tripCache.get(date);
   if (cached) return cached;
-  const trips = tripsForDate(date).map(applyExtraBooked);
+  const trips = [...tripsForDate(date).map(applyExtraBooked), ...customTripsForDate(date)];
   tripCache.set(date, trips);
   return trips;
+}
+
+/* ---- Admin-created custom trips (merged into the catalog) ---- */
+
+type TripSource = (date: string) => Trip[];
+const customTripSources: TripSource[] = [];
+
+/**
+ * Register a provider of admin-created trips. Each provider returns the
+ * custom trips available for a given date; they are merged into the catalog
+ * by getTripsForDate so admin routes flow through search and booking.
+ */
+export function registerCustomTripSource(source: TripSource): void {
+  customTripSources.push(source);
+}
+
+function customTripsForDate(date: string): Trip[] {
+  const out: Trip[] = [];
+  for (const source of customTripSources) {
+    out.push(...source(date));
+  }
+  return out;
+}
+
+/** Drop the cache for a date so newly added custom trips are picked up. */
+export function invalidateTripCache(date?: string): void {
+  if (date) {
+    tripCache.delete(date);
+  } else {
+    tripCache.clear();
+  }
 }
 
 export function getTripById(id: string): Trip | undefined {

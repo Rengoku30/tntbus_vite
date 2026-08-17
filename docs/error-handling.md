@@ -13,7 +13,7 @@ Error handling is a **first-class, layered system**. Each layer is a concrete fi
 | 5 | **Async UI states** | `lib/async.ts`, `components/ui/Skeleton.tsx`, `feedback/ErrorBanner.tsx` | Loading → skeleton; error → banner with Retry; empty → `EmptyState`. |
 | 6 | **Error boundaries** | `feedback/ErrorBoundary.tsx` | Catches render/lifecycle crashes per-route and at root; friendly screen + error ref id. |
 | 7 | **Simulated network** | `api/mockClient.ts`, `lib/retry.ts` | Latency, probabilistic failure, offline rejection, timeout; Retry uses exponential backoff with jitter. |
-| 8 | **Routing guards** | `layout/ProtectedRoute.tsx`, `pages/NotFoundPage.tsx` | Auth redirect with `?next=`, on-brand 404, foreign booking ids → not-found. |
+| 8 | **Routing guards** | `layout/ProtectedRoute.tsx`, `layout/RequireAdmin.tsx`, `pages/NotFoundPage.tsx` | Auth redirect with `?next=`, admin-role enforcement, on-brand 404, foreign booking ids → not-found. |
 | 9 | **Offline awareness** | `lib/online.ts`, `feedback/OfflineBanner.tsx` | Sticky banner when offline; API calls reject with `NetworkError` when `navigator.onLine` is false. |
 | 10 | **Storage resilience** | `lib/storage.ts` | Quota exceeded / private-mode / corrupt JSON handled; in-memory fallback keeps the session working; toast notifies. |
 | 11 | **Asset fallbacks** | `ProfilePage.tsx`, `BookingConfirmedPage.tsx` | Avatar `onError` → initials; QR render error → placeholder; fonts self-hosted (no CDN failure). |
@@ -32,6 +32,7 @@ export class AppError extends Error {
   cause?: unknown;        // original error for diagnostics
 }
 
+export class ForbiddenError extends AppError { … } // code "FORBIDDEN", status 403 — admin access denied
 export class SeatTakenError extends AppError { … } // code "SEAT_TAKEN", status 409
 export class PaymentDeclinedError extends AppError { … } // code "PAYMENT_DECLINED", status 402
 export class NetworkError extends AppError { … } // code "NETWORK", status 0, retryable
