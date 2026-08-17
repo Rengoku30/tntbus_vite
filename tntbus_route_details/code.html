@@ -1,0 +1,395 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>TNTBus - Route Details &amp; Seat Selection</title>
+<!-- Google Fonts: Montserrat (Headlines) & Inter (Labels/Body) -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=Montserrat:wght@700;800;900&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#cdcd00",
+                    "on-error-container": "#ffdad6",
+                    "surface-container": "#1e2020",
+                    "on-surface": "#e2e2e2",
+                    "tertiary": "#ffffff",
+                    "primary": "#ffffff",
+                    "inverse-primary": "#626200",
+                    "on-tertiary": "#313030",
+                    "on-secondary-container": "#b5b5b5",
+                    "surface-dim": "#121414",
+                    "tertiary-container": "#e5e2e1",
+                    "on-error": "#690005",
+                    "surface-container-high": "#282a2b",
+                    "surface-container-lowest": "#0c0f0f",
+                    "tertiary-fixed": "#e5e2e1",
+                    "outline-variant": "#484831",
+                    "on-secondary": "#303030",
+                    "error-container": "#93000a",
+                    "on-secondary-fixed": "#1b1b1b",
+                    "surface-bright": "#37393a",
+                    "tertiary-fixed-dim": "#c8c6c5",
+                    "secondary-container": "#474747",
+                    "surface-variant": "#333535",
+                    "error": "#ffb4ab",
+                    "inverse-surface": "#e2e2e2",
+                    "on-primary": "#323200",
+                    "on-tertiary-container": "#656464",
+                    "on-tertiary-fixed": "#1c1b1b",
+                    "surface-tint": "#cdcd00",
+                    "background": "#121414",
+                    "primary-container": "#eaea00",
+                    "on-surface-variant": "#cac8aa",
+                    "surface-container-low": "#1a1c1c",
+                    "primary-fixed": "#eaea00",
+                    "on-primary-container": "#686800",
+                    "on-primary-fixed": "#1d1d00",
+                    "outline": "#939277",
+                    "secondary": "#c6c6c6",
+                    "on-secondary-fixed-variant": "#474747",
+                    "secondary-fixed": "#e2e2e2",
+                    "secondary-fixed-dim": "#c6c6c6",
+                    "on-tertiary-fixed-variant": "#474746",
+                    "inverse-on-surface": "#2f3131",
+                    "surface": "#121414",
+                    "on-background": "#e2e2e2",
+                    "surface-container-highest": "#333535",
+                    "on-primary-fixed-variant": "#494900"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "stack-sm": "8px",
+                    "container-margin": "20px",
+                    "gutter": "16px",
+                    "stack-lg": "32px",
+                    "stack-md": "16px"
+            },
+            "fontFamily": {
+                    "label-bold": ["Inter"],
+                    "headline-lg": ["Montserrat"],
+                    "headline-xl": ["Montserrat"],
+                    "headline-md": ["Montserrat"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Montserrat"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-bold": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "800"}],
+                    "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "900"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "800"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "500"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        /* Custom Scrollbar for better dark mode integration */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121414; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333535; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #474747; 
+        }
+        
+        /* Seat Animation */
+        .seat-selected {
+            animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md antialiased min-h-screen flex flex-col pb-[120px]">
+<!-- Shared Component: TopAppBar -->
+<nav class="bg-background dark:bg-background border-b border-outline-variant flex justify-between items-center w-full px-container-margin py-4 max-w-full sticky top-0 z-50">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container dark:text-primary-fixed hover:opacity-80 transition-opacity duration-200 cursor-pointer" data-weight="fill" style="font-variation-settings: 'FILL' 1;">
+                directions_bus
+            </span>
+<span class="text-headline-md font-headline-md font-black text-primary-container tracking-tighter">
+                TNTBus
+            </span>
+</div>
+<div class="flex items-center gap-4">
+<!-- Contextual action for this view, not from JSON but standard for details page -->
+<button class="text-on-surface-variant hover:text-primary-container transition-opacity duration-200">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="flex-1 w-full max-w-4xl mx-auto px-container-margin py-stack-lg flex flex-col lg:flex-row gap-stack-lg">
+<!-- Left Column: Route Details & Itinerary -->
+<div class="w-full lg:w-1/2 flex flex-col gap-stack-md">
+<!-- Trip Header Card -->
+<div class="bg-surface-container-low p-gutter rounded border border-surface-variant flex flex-col gap-unit">
+<div class="flex justify-between items-start">
+<div>
+<h1 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-tertiary">Express 402</h1>
+<p class="text-on-secondary-container text-label-sm font-label-sm mt-1 uppercase tracking-widest">Volvo Multi-Axle Sleeper</p>
+</div>
+<div class="bg-primary-container/10 px-3 py-1 rounded border border-primary-container text-primary-container text-label-bold font-label-bold flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 16px;">bolt</span>
+                        FAST
+                    </div>
+</div>
+<div class="flex items-center gap-4 mt-stack-sm text-tertiary font-body-lg text-body-lg">
+<span class="font-bold">NYC</span>
+<span class="material-symbols-outlined text-primary-container">arrow_forward</span>
+<span class="font-bold">BOS</span>
+</div>
+<div class="text-on-surface-variant text-body-md font-body-md">
+                    Today, 22:30 • 4h 15m Duration
+                </div>
+</div>
+<!-- Itinerary Timeline -->
+<div class="bg-surface-container-low p-gutter rounded border border-surface-variant">
+<h2 class="text-headline-md font-headline-md text-tertiary mb-stack-md">Itinerary</h2>
+<div class="relative pl-6 border-l-2 border-surface-variant space-y-8">
+<!-- Stop 1 -->
+<div class="relative">
+<div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-primary-container border-4 border-surface-container-low"></div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-tertiary text-label-bold font-label-bold">Port Authority Bus Terminal, NYC</h3>
+<p class="text-on-surface-variant text-label-sm font-label-sm mt-1">Departure • Platform 42</p>
+</div>
+<span class="text-primary-container text-label-bold font-label-bold">22:30</span>
+</div>
+</div>
+<!-- Stop 2 -->
+<div class="relative">
+<div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-surface-variant border-4 border-surface-container-low"></div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-tertiary text-label-bold font-label-bold">Stamford Transportation Center, CT</h3>
+<p class="text-on-surface-variant text-label-sm font-label-sm mt-1">Brief Stop (10 mins)</p>
+</div>
+<span class="text-tertiary text-label-bold font-label-bold">23:45</span>
+</div>
+</div>
+<!-- Stop 3 -->
+<div class="relative">
+<div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-surface-variant border-4 border-surface-container-low"></div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-tertiary text-label-bold font-label-bold">New Haven Union Station, CT</h3>
+<p class="text-on-surface-variant text-label-sm font-label-sm mt-1">Pickup Only</p>
+</div>
+<span class="text-tertiary text-label-bold font-label-bold">00:30</span>
+</div>
+</div>
+<!-- Stop 4 (Destination) -->
+<div class="relative">
+<div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-primary-container border-4 border-surface-container-low"></div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-tertiary text-label-bold font-label-bold">South Station Bus Terminal, BOS</h3>
+<p class="text-on-surface-variant text-label-sm font-label-sm mt-1">Final Destination</p>
+</div>
+<span class="text-primary-container text-label-bold font-label-bold">02:45</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Amenities Chips -->
+<div class="flex flex-wrap gap-2 mt-2">
+<div class="border border-outline-variant rounded px-3 py-1 flex items-center gap-2 text-on-surface text-label-sm font-label-sm">
+<span class="material-symbols-outlined" style="font-size: 16px;">wifi</span> Free WiFi
+                </div>
+<div class="border border-outline-variant rounded px-3 py-1 flex items-center gap-2 text-on-surface text-label-sm font-label-sm">
+<span class="material-symbols-outlined" style="font-size: 16px;">power</span> Outlets
+                </div>
+<div class="border border-outline-variant rounded px-3 py-1 flex items-center gap-2 text-on-surface text-label-sm font-label-sm">
+<span class="material-symbols-outlined" style="font-size: 16px;">ac_unit</span> AC
+                </div>
+</div>
+</div>
+<!-- Right Column: Seat Selection -->
+<div class="w-full lg:w-1/2 flex flex-col gap-stack-md">
+<div class="bg-surface-container-high p-gutter rounded border border-surface-variant flex flex-col h-full">
+<div class="flex justify-between items-center mb-stack-md pb-unit border-b border-outline-variant">
+<h2 class="text-headline-md font-headline-md text-tertiary">Select Seats</h2>
+<!-- Legend -->
+<div class="flex gap-4 text-label-sm font-label-sm">
+<div class="flex items-center gap-1">
+<div class="w-4 h-4 border-2 border-primary-container rounded-sm"></div>
+<span class="text-on-surface">Available</span>
+</div>
+<div class="flex items-center gap-1">
+<div class="w-4 h-4 bg-surface-variant rounded-sm"></div>
+<span class="text-on-surface-variant">Booked</span>
+</div>
+<div class="flex items-center gap-1">
+<div class="w-4 h-4 bg-primary-container rounded-sm"></div>
+<span class="text-on-surface">Selected</span>
+</div>
+</div>
+</div>
+<!-- Bus Layout Wrapper -->
+<div class="flex-1 flex justify-center py-stack-md overflow-x-auto">
+<!-- Bus Outline -->
+<div class="border-4 border-outline-variant rounded-t-[40px] rounded-b-lg p-6 bg-surface-container flex flex-col gap-6 relative min-w-[280px]">
+<!-- Driver Area -->
+<div class="flex justify-end border-b-2 border-outline-variant pb-4 mb-2">
+<div class="w-10 h-10 border-2 border-outline-variant rounded flex items-center justify-center opacity-50">
+<span class="material-symbols-outlined">airline_seat_recline_normal</span>
+</div>
+</div>
+<!-- Seat Grid -->
+<div class="grid grid-cols-4 gap-x-8 gap-y-4 relative">
+<!-- Aisle marker -->
+<div class="absolute top-0 bottom-0 left-[50%] w-px bg-surface-variant -translate-x-1/2"></div>
+<!-- Row 1 -->
+<button class="seat-btn w-10 h-10 md:w-12 md:h-12 border-2 border-primary-container rounded flex items-center justify-center text-label-bold font-label-bold text-primary-container hover:bg-primary-container/20 transition-colors" data-price="45.00" data-seat="1A">1A</button>
+<button class="seat-btn w-10 h-10 md:w-12 md:h-12 border-2 border-primary-container rounded flex items-center justify-center text-label-bold font-label-bold text-primary-container hover:bg-primary-container/20 transition-colors" data-price="45.00" data-seat="1B">1B</button>
+<button class="w-10 h-10 md:w-12 md:h-12 bg-surface-variant rounded flex items-center justify-center text-label-bold font-label-bold text-on-surface-variant opacity-50 cursor-not-allowed" disabled="">1C</button>
+<button class="w-10 h-10 md:w-12 md:h-12 bg-surface-variant rounded flex items-center justify-center text-label-bold font-label-bold text-on-surface-variant opacity-50 cursor-not-allowed" disabled="">1D</button>
+<!-- Row 2 -->
+<button class="w-10 h-10 md:w-12 md:h-12 bg-surface-variant rounded flex items-center justify-center text-label-bold font-label-bold text-on-surface-variant opacity-50 cursor-not-allowed" disabled="">2A</button>
+<button class="w-10 h-10 md:w-12 md:h-12 bg-surface-variant rounded flex items-center justify-center text-label-bold font-label-bold text-on-surface-variant opacity-50 cursor-not-allowed" disabled="">2B</button>
+<button class="seat-btn w-10 h-10 md:w-12 md:h-12 border-2 border-primary-container rounded flex items-center justify-center text-label-bold font-label-bold text-primary-container hover:bg-primary-container/20 transition-colors" data-price="45.00" data-seat="2C">2C</button>
+<button class="seat-btn w-10 h-10 md:w-12 md:h-12 border-2 border-primary-container rounded flex items-center justify-center text-label-bold font-label-bold text-primary-container hover:bg-primary-container/20 transition-colors" data-price="45.00" data-seat="2D">2D</button>
+<!-- Row 3 -->
+<button class="seat-btn w-10 h-10 md:w-12 md:h-12 border-2 border-primary-container rounded flex items-center justify-center text-label-bold font-label-bold text-primary-container hover:bg-primary-container/20 transition-colors" data-price="45.00" data-seat="3A">3A</button>
+<button class="seat-btn w-10 h-10 md:w-12 md:h-12 border-2 border-primary-container rounded flex items-center justify-center text-label-bold font-label-bold text-primary-container hover:bg-primary-container/20 transition-colors" data-price="45.00" data-seat="3B">3B</button>
+<button class="seat-btn w-10 h-10 md:w-12 md:h-12 border-2 border-primary-container rounded flex items-center justify-center text-label-bold font-label-bold text-primary-container hover:bg-primary-container/20 transition-colors" data-price="45.00" data-seat="3C">3C</button>
+<button class="seat-btn w-10 h-10 md:w-12 md:h-12 border-2 border-primary-container rounded flex items-center justify-center text-label-bold font-label-bold text-primary-container hover:bg-primary-container/20 transition-colors" data-price="45.00" data-seat="3D">3D</button>
+<!-- Row 4 -->
+<button class="w-10 h-10 md:w-12 md:h-12 bg-surface-variant rounded flex items-center justify-center text-label-bold font-label-bold text-on-surface-variant opacity-50 cursor-not-allowed" disabled="">4A</button>
+<button class="seat-btn w-10 h-10 md:w-12 md:h-12 border-2 border-primary-container rounded flex items-center justify-center text-label-bold font-label-bold text-primary-container hover:bg-primary-container/20 transition-colors" data-price="45.00" data-seat="4B">4B</button>
+<button class="seat-btn w-10 h-10 md:w-12 md:h-12 border-2 border-primary-container rounded flex items-center justify-center text-label-bold font-label-bold text-primary-container hover:bg-primary-container/20 transition-colors" data-price="45.00" data-seat="4C">4C</button>
+<button class="w-10 h-10 md:w-12 md:h-12 bg-surface-variant rounded flex items-center justify-center text-label-bold font-label-bold text-on-surface-variant opacity-50 cursor-not-allowed" disabled="">4D</button>
+<!-- Row 5 (Premium/Extra Legroom) -->
+<button class="seat-btn w-10 h-10 md:w-12 md:h-12 border-2 border-[#ff9900] rounded flex items-center justify-center text-label-bold font-label-bold text-[#ff9900] hover:bg-[#ff9900]/20 transition-colors relative" data-price="55.00" data-seat="5A">
+                                5A <span class="absolute -top-1 -right-1 text-[8px] bg-[#ff9900] text-black px-1 rounded-full">★</span>
+</button>
+<button class="w-10 h-10 md:w-12 md:h-12 bg-surface-variant rounded flex items-center justify-center text-label-bold font-label-bold text-on-surface-variant opacity-50 cursor-not-allowed" disabled="">5B</button>
+<button class="seat-btn w-10 h-10 md:w-12 md:h-12 border-2 border-[#ff9900] rounded flex items-center justify-center text-label-bold font-label-bold text-[#ff9900] hover:bg-[#ff9900]/20 transition-colors relative" data-price="55.00" data-seat="5C">
+                                5C <span class="absolute -top-1 -right-1 text-[8px] bg-[#ff9900] text-black px-1 rounded-full">★</span>
+</button>
+<button class="seat-btn w-10 h-10 md:w-12 md:h-12 border-2 border-[#ff9900] rounded flex items-center justify-center text-label-bold font-label-bold text-[#ff9900] hover:bg-[#ff9900]/20 transition-colors relative" data-price="55.00" data-seat="5D">
+                                5D <span class="absolute -top-1 -right-1 text-[8px] bg-[#ff9900] text-black px-1 rounded-full">★</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Sticky Bottom Bar (Transactional Focus) -->
+<!-- Suppressed the standard BottomNavBar as per rules for transactional flows, replaced with action bar -->
+<div class="fixed bottom-0 left-0 w-full bg-surface-container-high border-t-2 border-primary-container p-4 md:px-container-margin md:py-6 shadow-[0_-10px_30px_rgba(0,0,0,0.8)] z-50">
+<div class="max-w-4xl mx-auto flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-on-surface-variant text-label-sm font-label-sm uppercase tracking-wider" id="seat-selection-text">0 Seats Selected</span>
+<div class="flex items-end gap-1 mt-1">
+<span class="text-on-surface-variant text-body-md font-body-md leading-none mb-0.5">$</span>
+<span class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-primary-container leading-none" id="total-price">0.00</span>
+</div>
+</div>
+<button class="bg-surface-variant text-on-surface-variant px-8 py-3 rounded text-label-bold font-label-bold uppercase tracking-wider transition-all duration-300 pointer-events-none opacity-50 flex items-center gap-2" id="book-btn">
+                Proceed to Book
+                <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Interactive Logic -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const seats = document.querySelectorAll('.seat-btn');
+            const seatSelectionText = document.getElementById('seat-selection-text');
+            const totalPriceEl = document.getElementById('total-price');
+            const bookBtn = document.getElementById('book-btn');
+            
+            let selectedSeats = [];
+            let currentTotal = 0;
+
+            seats.forEach(seat => {
+                seat.addEventListener('click', function() {
+                    const seatId = this.getAttribute('data-seat');
+                    const price = parseFloat(this.getAttribute('data-price'));
+                    
+                    if (this.classList.contains('bg-primary-container')) {
+                        // Deselect
+                        this.classList.remove('bg-primary-container', 'text-on-primary-container', 'seat-selected');
+                        
+                        // Restore original border colors based on premium status
+                        if(this.getAttribute('data-price') > 45) {
+                            this.classList.add('border-[#ff9900]', 'text-[#ff9900]');
+                        } else {
+                            this.classList.add('border-primary-container', 'text-primary-container');
+                        }
+
+                        selectedSeats = selectedSeats.filter(id => id !== seatId);
+                        currentTotal -= price;
+                    } else {
+                        // Select
+                        this.classList.remove('border-primary-container', 'text-primary-container', 'border-[#ff9900]', 'text-[#ff9900]', 'hover:bg-primary-container/20', 'hover:bg-[#ff9900]/20');
+                        this.classList.add('bg-primary-container', 'text-[#000000]', 'seat-selected'); // Force black text for contrast on yellow fill
+                        
+                        selectedSeats.push(seatId);
+                        currentTotal += price;
+                    }
+                    
+                    updateBottomBar();
+                });
+            });
+
+            function updateBottomBar() {
+                // Update Text
+                if (selectedSeats.length === 0) {
+                    seatSelectionText.textContent = '0 Seats Selected';
+                } else if (selectedSeats.length === 1) {
+                    seatSelectionText.textContent = `Seat: ${selectedSeats[0]}`;
+                } else {
+                    seatSelectionText.textContent = `Seats: ${selectedSeats.join(', ')}`;
+                }
+
+                // Update Price
+                totalPriceEl.textContent = currentTotal.toFixed(2);
+
+                // Update Button State
+                if (selectedSeats.length > 0) {
+                    bookBtn.classList.remove('bg-surface-variant', 'text-on-surface-variant', 'pointer-events-none', 'opacity-50');
+                    bookBtn.classList.add('bg-primary-container', 'text-[#000000]', 'hover:brightness-110', 'hover:-translate-y-1', 'shadow-lg'); // Raw black text for high contrast on yellow
+                } else {
+                    bookBtn.classList.add('bg-surface-variant', 'text-on-surface-variant', 'pointer-events-none', 'opacity-50');
+                    bookBtn.classList.remove('bg-primary-container', 'text-[#000000]', 'hover:brightness-110', 'hover:-translate-y-1', 'shadow-lg');
+                }
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>TNTBus - User Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=Montserrat:wght@700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#e5e2e1",
+                        "secondary-container": "#474747",
+                        "surface-container-lowest": "#0c0f0f",
+                        "inverse-on-surface": "#2f3131",
+                        "error": "#ffb4ab",
+                        "surface-container": "#1e2020",
+                        "on-surface-variant": "#cac8aa",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "on-background": "#e2e2e2",
+                        "outline-variant": "#484831",
+                        "surface-dim": "#121414",
+                        "secondary-fixed": "#e2e2e2",
+                        "on-primary-fixed": "#1d1d00",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#494900",
+                        "on-tertiary-fixed-variant": "#474746",
+                        "tertiary-fixed": "#e5e2e1",
+                        "surface-tint": "#cdcd00",
+                        "secondary": "#c6c6c6",
+                        "on-error": "#690005",
+                        "on-primary": "#323200",
+                        "surface-bright": "#37393a",
+                        "surface-container-low": "#1a1c1c",
+                        "primary-fixed-dim": "#cdcd00",
+                        "surface-container-highest": "#333535",
+                        "on-secondary-fixed": "#1b1b1b",
+                        "on-secondary-fixed-variant": "#474747",
+                        "on-tertiary-container": "#656464",
+                        "inverse-surface": "#e2e2e2",
+                        "background": "#121414",
+                        "on-tertiary": "#313030",
+                        "on-primary-container": "#686800",
+                        "tertiary": "#ffffff",
+                        "on-secondary": "#303030",
+                        "outline": "#939277",
+                        "surface": "#121414",
+                        "on-surface": "#e2e2e2",
+                        "error-container": "#93000a",
+                        "surface-variant": "#333535",
+                        "inverse-primary": "#626200",
+                        "primary-container": "#eaea00",
+                        "primary": "#ffffff",
+                        "surface-container-high": "#282a2b",
+                        "primary-fixed": "#eaea00",
+                        "secondary-fixed-dim": "#c6c6c6",
+                        "on-secondary-container": "#b5b5b5",
+                        "on-tertiary-fixed": "#1c1b1b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "stack-lg": "32px",
+                        "stack-sm": "8px",
+                        "unit": "8px",
+                        "container-margin": "20px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "label-bold": ["Inter"],
+                        "headline-md": ["Montserrat"],
+                        "body-md": ["Inter"],
+                        "headline-xl": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-bold": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "900" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "800" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "34px", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Hide scrollbar for cleaner look */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-on-primary-container pb-[80px]">
+<!-- TopAppBar (Hidden on Mobile) -->
+<header class="hidden md:flex justify-between items-center w-full px-container-margin py-4 max-w-full bg-background border-b border-outline-variant sticky top-0 z-50">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-headline-md" data-icon="directions_bus">directions_bus</span>
+<span class="text-headline-md font-headline-md font-black text-primary-container tracking-tighter">TNTBus</span>
+</div>
+<nav class="flex gap-6">
+<a class="text-label-bold font-label-bold text-on-surface-variant hover:opacity-80 transition-opacity duration-200" href="#">Home</a>
+<a class="text-label-bold font-label-bold text-on-surface-variant hover:opacity-80 transition-opacity duration-200" href="#">Bookings</a>
+<a class="text-label-bold font-label-bold text-on-surface-variant hover:opacity-80 transition-opacity duration-200" href="#">Alerts</a>
+<a class="text-label-bold font-label-bold text-primary-container hover:opacity-80 transition-opacity duration-200" href="#">Profile</a>
+</nav>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow px-container-margin py-stack-lg max-w-3xl mx-auto w-full flex flex-col gap-stack-lg">
+<!-- Profile Header -->
+<section class="flex flex-col md:flex-row items-center md:items-start gap-stack-md text-center md:text-left">
+<div class="relative group">
+<div class="w-32 h-32 rounded-full overflow-hidden border-4 border-primary-container">
+<img class="w-full h-full object-cover" data-alt="A striking portrait of a modern urban traveler. The lighting is high-contrast, moody, and cinematic, emphasizing sharp facial features. The background is pitch black, with subtle hints of neon yellow accentuating the high-octane, fast-paced transportation utility aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDk0MjLPfxuKzRBtIdzpZUzeKW74YmvscaiY2PKM3T9en-s_ZNDocOqNkI9xInMMx1r0319CIaJmD77_bthpTAwjmSaWsMYFVvLiS8QybNPTMpVpS6CovYVWyanIrKo3ephCCfEiK856UzsUzlTJcarEaLsYC7EAuZ6jp5dW7YVCwsXZ-7gP2XhWVvGo12HEGQJylMkZPAmtbPTbuSW-NFe7civmCQUVU_c_Ix1L6yHVUG4pzYBfP_-2Q">
+</div>
+<button aria-label="Edit Profile Picture" class="absolute bottom-0 right-0 bg-surface-container-lowest border border-outline-variant p-2 rounded-full hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-on-surface text-[20px]" data-icon="edit">edit</span>
+</button>
+</div>
+<div class="flex flex-col gap-unit mt-2 md:mt-4">
+<h1 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-primary">John Doe</h1>
+<div class="flex items-center justify-center md:justify-start gap-2">
+<span class="inline-flex items-center gap-1 bg-surface-container px-3 py-1 rounded-sm border border-[#1A1A1A]">
+<span class="material-symbols-outlined text-primary-container text-[16px] fill-icon" data-icon="star">star</span>
+<span class="text-label-bold font-label-bold text-primary-container">Gold Member</span>
+</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Joined 2021</span>
+</div>
+</div>
+</section>
+<!-- Account Settings List -->
+<section class="flex flex-col gap-2">
+<!-- Item 1 -->
+<a class="group flex items-center justify-between bg-[#1A1A1A] p-4 rounded-sm border border-transparent hover:border-primary-container transition-colors duration-200" href="#">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-container-lowest flex items-center justify-center rounded-sm text-on-surface group-hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</div>
+<div class="flex flex-col">
+<span class="text-body-md font-body-md text-primary font-bold">Personal Information</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Update your details</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary-container transition-colors" data-icon="chevron_right">chevron_right</span>
+</a>
+<!-- Item 2 -->
+<a class="group flex items-center justify-between bg-[#1A1A1A] p-4 rounded-sm border border-transparent hover:border-primary-container transition-colors duration-200" href="#">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-container-lowest flex items-center justify-center rounded-sm text-on-surface group-hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="confirmation_number">confirmation_number</span>
+</div>
+<div class="flex flex-col">
+<span class="text-body-md font-body-md text-primary font-bold">My Bookings</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Past and upcoming trips</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary-container transition-colors" data-icon="chevron_right">chevron_right</span>
+</a>
+<!-- Item 3 -->
+<a class="group flex items-center justify-between bg-[#1A1A1A] p-4 rounded-sm border border-transparent hover:border-primary-container transition-colors duration-200" href="#">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-container-lowest flex items-center justify-center rounded-sm text-on-surface group-hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+</div>
+<div class="flex flex-col">
+<span class="text-body-md font-body-md text-primary font-bold">Payment Methods</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Manage cards and wallets</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary-container transition-colors" data-icon="chevron_right">chevron_right</span>
+</a>
+<!-- Item 4 -->
+<a class="group flex items-center justify-between bg-[#1A1A1A] p-4 rounded-sm border border-transparent hover:border-primary-container transition-colors duration-200" href="#">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-container-lowest flex items-center justify-center rounded-sm text-on-surface group-hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</div>
+<div class="flex flex-col">
+<span class="text-body-md font-body-md text-primary font-bold">Notifications</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Alert preferences</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary-container transition-colors" data-icon="chevron_right">chevron_right</span>
+</a>
+<!-- Item 5 -->
+<a class="group flex items-center justify-between bg-[#1A1A1A] p-4 rounded-sm border border-transparent hover:border-primary-container transition-colors duration-200" href="#">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-container-lowest flex items-center justify-center rounded-sm text-on-surface group-hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</div>
+<div class="flex flex-col">
+<span class="text-body-md font-body-md text-primary font-bold">Help/Support</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">FAQs and contact</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary-container transition-colors" data-icon="chevron_right">chevron_right</span>
+</a>
+</section>
+<!-- Logout Action -->
+<div class="mt-auto pt-stack-md">
+<button class="w-full md:w-auto bg-transparent border-2 border-primary-container text-primary-container text-label-bold font-label-bold py-3 px-6 rounded-sm hover:bg-primary-container hover:text-black transition-colors duration-200 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Logout
+            </button>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center h-16 px-2 pb-safe bg-surface-container-lowest dark:bg-surface-container-lowest shadow-none" style="border-top: none;">
+<a class="flex flex-col items-center justify-center text-on-secondary-container opacity-60 hover:text-primary-fixed-dim transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-label-sm font-label-sm mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-container opacity-60 hover:text-primary-fixed-dim transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="confirmation_number">confirmation_number</span>
+<span class="text-label-sm font-label-sm mt-1">Bookings</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-container opacity-60 hover:text-primary-fixed-dim transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="text-label-sm font-label-sm mt-1">Alerts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary-container font-bold scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined fill-icon" data-icon="person">person</span>
+<span class="text-label-sm font-label-sm mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

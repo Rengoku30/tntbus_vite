@@ -1,0 +1,195 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>TNTBus - Registration</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=Montserrat:wght@700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "error": "#ffb4ab",
+                        "on-background": "#e2e2e2",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "secondary": "#c6c6c6",
+                        "on-primary-fixed": "#1d1d00",
+                        "tertiary-container": "#e5e2e1",
+                        "on-surface-variant": "#cac8aa",
+                        "surface-variant": "#333535",
+                        "on-primary-fixed-variant": "#494900",
+                        "on-primary-container": "#686800",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "inverse-on-surface": "#2f3131",
+                        "outline-variant": "#484831",
+                        "primary-fixed": "#eaea00",
+                        "tertiary": "#ffffff",
+                        "on-tertiary": "#313030",
+                        "tertiary-fixed": "#e5e2e1",
+                        "on-tertiary-container": "#656464",
+                        "primary-fixed-dim": "#cdcd00",
+                        "surface-container": "#1e2020",
+                        "on-secondary-container": "#b5b5b5",
+                        "primary": "#ffffff",
+                        "surface-dim": "#121414",
+                        "on-error": "#690005",
+                        "primary-container": "#eaea00",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#333535",
+                        "secondary-fixed-dim": "#c6c6c6",
+                        "outline": "#939277",
+                        "surface-tint": "#cdcd00",
+                        "surface-container-lowest": "#0c0f0f",
+                        "on-tertiary-fixed-variant": "#474746",
+                        "secondary-container": "#474747",
+                        "error-container": "#93000a",
+                        "on-secondary": "#303030",
+                        "on-secondary-fixed-variant": "#474747",
+                        "surface-container-high": "#282a2b",
+                        "surface": "#121414",
+                        "inverse-surface": "#e2e2e2",
+                        "background": "#121414",
+                        "on-surface": "#e2e2e2",
+                        "secondary-fixed": "#e2e2e2",
+                        "surface-bright": "#37393a",
+                        "on-secondary-fixed": "#1b1b1b",
+                        "on-primary": "#323200",
+                        "inverse-primary": "#626200",
+                        "surface-container-low": "#1a1c1c"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "unit": "8px",
+                        "stack-lg": "32px",
+                        "gutter": "16px",
+                        "stack-sm": "8px",
+                        "container-margin": "20px",
+                        "stack-md": "16px"
+                    },
+                    fontFamily: {
+                        "headline-lg-mobile": ["Montserrat"],
+                        "headline-md": ["Montserrat"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Montserrat"],
+                        "body-lg": ["Inter"],
+                        "headline-xl": ["Montserrat"],
+                        "label-sm": ["Inter"],
+                        "label-bold": ["Inter"]
+                    },
+                    fontSize: {
+                        "headline-lg-mobile": ["28px", { "lineHeight": "34px", "fontWeight": "800" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "900" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-bold": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col font-body-md antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<!-- Suppressed BottomNav due to linear/transactional flow -->
+<header class="bg-surface border-b-2 border-surface-variant flex items-center justify-between px-container-margin h-16 w-full sticky top-0 z-50">
+<button aria-label="Go back" class="text-primary hover:opacity-80 active:scale-95 transition-transform duration-100 flex items-center justify-center p-2 -ml-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-fixed">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="font-headline-lg-mobile text-headline-lg-mobile font-black text-primary tracking-tighter">TNTBus</div>
+<!-- Spacer to balance the leading icon -->
+<div class="w-10"></div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 px-container-margin py-stack-lg flex flex-col max-w-md mx-auto w-full">
+<!-- Header -->
+<div class="mb-stack-lg">
+<h1 class="font-headline-xl text-headline-xl text-primary font-black tracking-tighter mb-2">Create Account</h1>
+<p class="font-body-md text-body-md text-secondary">Join TNTBus for faster, clearer bookings.</p>
+</div>
+<!-- Registration Form -->
+<form class="flex flex-col flex-1" novalidate="">
+<div class="flex flex-col gap-stack-md mb-stack-lg">
+<!-- Full Name Field -->
+<div class="flex flex-col gap-stack-sm">
+<label class="font-label-bold text-label-bold text-primary-fixed uppercase tracking-wider" for="fullName">Full Name</label>
+<input class="bg-surface-container-low border border-surface-variant text-on-surface font-body-lg text-body-lg p-4 rounded-DEFAULT focus:outline-none focus:border-2 focus:border-primary-fixed focus:bg-surface transition-all w-full placeholder:text-surface-variant" id="fullName" placeholder="Jane Doe" required="" type="text">
+</div>
+<!-- Email Field -->
+<div class="flex flex-col gap-stack-sm">
+<label class="font-label-bold text-label-bold text-primary-fixed uppercase tracking-wider" for="email">Email Address</label>
+<input class="bg-surface-container-low border border-surface-variant text-on-surface font-body-lg text-body-lg p-4 rounded-DEFAULT focus:outline-none focus:border-2 focus:border-primary-fixed focus:bg-surface transition-all w-full placeholder:text-surface-variant" id="email" placeholder="jane@example.com" required="" type="email">
+</div>
+<!-- Phone Number Field -->
+<div class="flex flex-col gap-stack-sm">
+<label class="font-label-bold text-label-bold text-primary-fixed uppercase tracking-wider" for="phone">Phone Number</label>
+<div class="flex relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 font-body-lg text-body-lg text-secondary material-symbols-outlined">call</span>
+<input class="bg-surface-container-low border border-surface-variant text-on-surface font-body-lg text-body-lg p-4 pl-12 rounded-DEFAULT focus:outline-none focus:border-2 focus:border-primary-fixed focus:bg-surface transition-all w-full placeholder:text-surface-variant" id="phone" placeholder="+1 (555) 000-0000" required="" type="tel">
+</div>
+</div>
+<!-- Password Field -->
+<div class="flex flex-col gap-stack-sm">
+<label class="font-label-bold text-label-bold text-primary-fixed uppercase tracking-wider" for="password">Password</label>
+<div class="flex relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 font-body-lg text-body-lg text-secondary material-symbols-outlined">lock</span>
+<input class="bg-surface-container-low border border-surface-variant text-on-surface font-body-lg text-body-lg p-4 pl-12 rounded-DEFAULT focus:outline-none focus:border-2 focus:border-primary-fixed focus:bg-surface transition-all w-full placeholder:text-surface-variant" id="password" placeholder="••••••••" required="" type="password">
+</div>
+</div>
+</div>
+<!-- Terms Checkbox -->
+<div class="flex items-start gap-3 mb-stack-lg p-4 bg-surface-container rounded-lg border border-surface-variant">
+<div class="flex items-center h-6">
+<input class="w-5 h-5 bg-surface border-2 border-surface-variant rounded-sm text-primary-fixed focus:ring-primary-fixed focus:ring-offset-surface cursor-pointer checked:border-primary-fixed transition-colors" id="terms" type="checkbox">
+</div>
+<label class="font-body-md text-body-md text-secondary cursor-pointer leading-tight pt-0.5" for="terms">
+                    I agree to the <a class="text-primary-fixed font-bold hover:underline focus:outline-none focus:ring-2 focus:ring-primary-fixed rounded" href="#">Terms and Conditions</a> and Privacy Policy.
+                </label>
+</div>
+<!-- Submit Action -->
+<div class="mt-auto pt-stack-md flex flex-col gap-stack-md">
+<button class="w-full bg-primary-fixed text-on-primary-fixed font-headline-md text-headline-md font-bold py-4 px-6 rounded-lg hover:bg-primary-fixed-dim active:scale-[0.98] transition-all flex items-center justify-center gap-2 focus:outline-none focus:ring-4 focus:ring-primary-fixed/30 shadow-[0_0_20px_rgba(234,234,0,0.1)]" type="submit">
+                    Create Account
+                    <span class="material-symbols-outlined font-bold">arrow_forward</span>
+</button>
+<!-- Login Link -->
+<p class="text-center font-body-md text-body-md text-secondary">
+                    Already have an account? 
+                    <a class="text-primary-fixed font-bold hover:underline focus:outline-none focus:ring-2 focus:ring-primary-fixed rounded px-1" href="#">Log In</a>
+</p>
+</div>
+</form>
+</main>
+<script>
+        // Simple form interaction for demonstration
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Processing...';
+            btn.classList.add('opacity-80', 'pointer-events-none');
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.remove('opacity-80', 'pointer-events-none');
+            }, 1500);
+        });
+    </script>
+</body></html>

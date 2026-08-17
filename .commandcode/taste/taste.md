@@ -1,0 +1,4 @@
+- Wants a detailed written plan before implementation begins, not jumping straight into code. Confidence: 0.8
+- Prioritizes best-in-class error handling as a first-class concern in builds. Confidence: 0.9
+- Expects provided design docs/specs (e.g., DESIGN.md) to be located and followed as the source of truth. Confidence: 0.8
+- Prefers thorough exploration of the project's folder structure before planning. Confidence: 0.7

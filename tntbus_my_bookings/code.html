@@ -1,0 +1,221 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>My Bookings - TNTBus</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#690005",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "secondary-fixed-dim": "#c6c6c6",
+                        "on-secondary": "#303030",
+                        "on-primary-container": "#686800",
+                        "on-tertiary-container": "#656464",
+                        "primary-container": "#eaea00",
+                        "inverse-on-surface": "#2f3131",
+                        "tertiary-fixed": "#e5e2e1",
+                        "on-background": "#e2e2e2",
+                        "error": "#ffb4ab",
+                        "inverse-surface": "#e2e2e2",
+                        "surface-bright": "#37393a",
+                        "on-tertiary-fixed-variant": "#474746",
+                        "background": "#121414",
+                        "surface-container-lowest": "#0c0f0f",
+                        "surface-tint": "#cdcd00",
+                        "tertiary": "#ffffff",
+                        "on-surface": "#e2e2e2",
+                        "outline": "#939277",
+                        "inverse-primary": "#626200",
+                        "surface": "#121414",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "on-secondary-container": "#b5b5b5",
+                        "on-primary-fixed-variant": "#494900",
+                        "surface-dim": "#121414",
+                        "primary-fixed-dim": "#cdcd00",
+                        "surface-container-highest": "#333535",
+                        "surface-container-high": "#282a2b",
+                        "secondary-container": "#474747",
+                        "secondary": "#c6c6c6",
+                        "error-container": "#93000a",
+                        "on-primary": "#323200",
+                        "outline-variant": "#484831",
+                        "on-tertiary": "#313030",
+                        "surface-container-low": "#1a1c1c",
+                        "primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#474747",
+                        "secondary-fixed": "#e2e2e2",
+                        "on-primary-fixed": "#1d1d00",
+                        "tertiary-container": "#e5e2e1",
+                        "surface-variant": "#333535",
+                        "on-secondary-fixed": "#1b1b1b",
+                        "on-error-container": "#ffdad6",
+                        "on-surface-variant": "#cac8aa",
+                        "surface-container": "#1e2020",
+                        "primary-fixed": "#eaea00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "container-margin": "20px",
+                        "stack-lg": "32px",
+                        "unit": "8px",
+                        "gutter": "16px",
+                        "stack-sm": "8px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "body-lg": ["Inter"],
+                        "label-bold": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Montserrat"],
+                        "headline-xl": ["Montserrat"],
+                        "headline-md": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "34px", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "label-bold": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "800" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "900" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #121414; color: #e2e2e2; }
+    </style>
+</head>
+<body class="bg-background dark:bg-background text-on-surface antialiased min-h-screen flex flex-col pb-[80px] md:pb-0">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-40 bg-background dark:bg-background border-b-2 border-primary-fixed">
+<div class="flex justify-between items-center px-container-margin py-stack-md w-full">
+<button class="text-primary-fixed dark:text-primary-fixed hover:bg-surface-container-high transition-colors active:scale-95 duration-100 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu</span>
+</button>
+<h1 class="font-headline-xl text-headline-md md:text-headline-xl font-black text-primary-fixed uppercase tracking-tighter">My Bookings</h1>
+<button class="text-primary-fixed dark:text-primary-fixed hover:bg-surface-container-high transition-colors active:scale-95 duration-100 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow px-container-margin py-stack-lg flex flex-col gap-stack-lg max-w-4xl mx-auto w-full">
+<!-- Tabs -->
+<div class="flex border-b border-surface-container-highest">
+<button class="flex-1 pb-unit border-b-2 border-primary-fixed text-primary-fixed font-label-bold text-label-bold" onclick="switchTab('upcoming')">Upcoming</button>
+<button class="flex-1 pb-unit border-b-2 border-transparent text-secondary-fixed-dim font-label-bold text-label-bold" onclick="switchTab('past')">Past</button>
+</div>
+<!-- Upcoming Tab Content -->
+<div class="flex flex-col gap-stack-md" id="tab-upcoming">
+<!-- Booking Card -->
+<div class="bg-[#1A1A1A] p-stack-md rounded flex flex-col gap-stack-sm border border-surface-container-highest relative overflow-hidden">
+<div class="flex justify-between items-center mb-unit">
+<span class="bg-surface-container text-secondary-fixed-dim px-2 py-1 rounded-sm font-label-sm text-label-sm uppercase tracking-wider">ID: #TB84729</span>
+<span class="text-primary-fixed font-label-bold text-label-bold uppercase flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">check_circle</span> Confirmed</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md md:text-headline-lg font-black text-on-surface">NYC</span>
+<span class="text-secondary-fixed-dim font-body-md text-body-md">New York</span>
+</div>
+<div class="flex-1 flex items-center justify-center px-4 relative">
+<div class="h-[2px] bg-surface-container-highest w-full absolute top-1/2 -translate-y-1/2"></div>
+<span class="material-symbols-outlined text-primary-fixed relative z-10 bg-[#1A1A1A] px-2" style="font-variation-settings: 'FILL' 1;">directions_bus</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="font-headline-md text-headline-md md:text-headline-lg font-black text-on-surface">BOS</span>
+<span class="text-secondary-fixed-dim font-body-md text-body-md">Boston</span>
+</div>
+</div>
+<div class="flex justify-between items-center mt-stack-sm bg-surface-container-low p-stack-sm rounded">
+<div class="flex flex-col">
+<span class="text-secondary-fixed-dim font-label-sm text-label-sm uppercase">Departure</span>
+<span class="text-primary-fixed font-label-bold text-body-lg font-bold">Oct 28 • 08:00 AM</span>
+</div>
+</div>
+<button class="w-full mt-stack-md bg-primary-fixed text-on-primary-fixed font-label-bold text-label-bold py-3 rounded active:scale-95 transition-transform duration-100 uppercase tracking-widest">
+                    View Ticket
+                </button>
+</div>
+</div>
+<!-- Past Tab Content -->
+<div class="hidden flex-col gap-stack-md" id="tab-past">
+<!-- Past Booking Card -->
+<div class="bg-[#1A1A1A] p-stack-md rounded flex flex-col gap-stack-sm border border-surface-container-highest opacity-75">
+<div class="flex justify-between items-center mb-unit">
+<span class="text-secondary-fixed-dim font-label-sm text-label-sm">Oct 10, 2023</span>
+<span class="text-secondary-fixed-dim font-label-bold text-label-bold uppercase flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">history</span> Completed</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="flex flex-col">
+<span class="font-headline-md text-body-lg font-bold text-on-surface">PHI</span>
+</div>
+<span class="material-symbols-outlined text-secondary-fixed-dim text-[16px]">arrow_forward</span>
+<div class="flex flex-col">
+<span class="font-headline-md text-body-lg font-bold text-on-surface">DC</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-background dark:bg-background border-t-2 border-primary-fixed flex justify-around items-stretch">
+<a class="flex flex-col items-center justify-center text-secondary-fixed-dim py-2 w-full hover:bg-surface-container transition-all active:opacity-80" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-bold text-label-bold text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-fixed text-on-primary-fixed rounded-none py-2 w-full hover:bg-surface-container transition-all active:opacity-80" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">confirmation_number</span>
+<span class="font-label-bold text-label-bold text-[10px]">Bookings</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary-fixed-dim py-2 w-full hover:bg-surface-container transition-all active:opacity-80" href="#">
+<span class="material-symbols-outlined mb-1">notifications</span>
+<span class="font-label-bold text-label-bold text-[10px]">Alerts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary-fixed-dim py-2 w-full hover:bg-surface-container transition-all active:opacity-80" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-bold text-label-bold text-[10px]">Profile</span>
+</a>
+</nav>
+<script>
+        function switchTab(tabId) {
+            const tabs = ['upcoming', 'past'];
+            const buttons = document.querySelectorAll('button.flex-1');
+            
+            tabs.forEach((id, index) => {
+                const el = document.getElementById(`tab-${id}`);
+                const btn = buttons[index];
+                if (id === tabId) {
+                    el.classList.remove('hidden');
+                    el.classList.add('flex');
+                    btn.classList.replace('border-transparent', 'border-primary-fixed');
+                    btn.classList.replace('text-secondary-fixed-dim', 'text-primary-fixed');
+                } else {
+                    el.classList.add('hidden');
+                    el.classList.remove('flex');
+                    btn.classList.replace('border-primary-fixed', 'border-transparent');
+                    btn.classList.replace('text-primary-fixed', 'text-secondary-fixed-dim');
+                }
+            });
+        }
+    </script>
+</body></html>

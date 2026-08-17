@@ -1,0 +1,85 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Self-hosted fonts/icons (no Google CDN dependency) */
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/montserrat";
+@import "material-symbols/outlined.css";
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-on-background font-body-md antialiased;
+    min-height: 100vh;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Visible, high-contrast focus ring using the brand yellow */
+  :focus-visible {
+    outline: 2px solid theme("colors.primary-container");
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Native dark color scheme for date/time/color pickers */
+  input[type="date"],
+  input[type="time"],
+  input[type="datetime-local"] {
+    color-scheme: dark;
+  }
+
+  /* Custom scrollbar matching the dark surface */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #121414;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #333535;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #474747;
+  }
+}
+
+@layer components {
+  /* Safe-area padding for mobile bottom nav / notches */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  /* Hide scrollbars on horizontal chip rows */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Material Symbols axis defaults (the package CSS sets family/size; we set the variation axes). */
+  .material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  }
+  .fill-icon {
+    font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+  }
+
+  /* Seat selection pop animation (ported from the mockup) */
+  .seat-selected {
+    animation: theme("animation.popIn");
+  }
+}
